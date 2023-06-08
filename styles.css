@@ -8,16 +8,26 @@
 }
 
 body {
+    position: relative;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     background-color: #7a4d9f;
     color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 h1 {
     font-family: 'Righteous', cursive;
     font-size: 300%;
     letter-spacing: 3px;
+}
+
+svg {
+    width: 100%;
+    height: auto;
+    fill: #22235f;
 }
 
 .btn {
@@ -42,7 +52,9 @@ h1 {
 }
 
 .btn.new:hover,
-.btn.new:focus {
+.btn.new:focus,
+.btn.add:hover,
+.btn.add:focus {
     background-color: #64658f;
 }
 
@@ -59,7 +71,7 @@ h1 {
                 rgba(0, 0, 0, 0.07) 0px 16px 16px;
 }
 
-header {
+.container header {
     background-color: #22235f;
     padding: 1.875rem .9375rem;
 }
@@ -131,4 +143,107 @@ main {
 .action-btns .delete:hover,
 .action-btns .delete:focus {
     background-color: #cb467d;
+}
+
+/* Modal & Overlay Styles */
+
+.hidden {
+    display: none;
+}
+
+.modal {
+    position: absolute;
+    top: 35%;
+    width: 20rem;
+    background-color: #f2edf5;
+    color: #22235f;
+    padding: .9375rem;
+    border-radius: .625rem;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    z-index: 2;
+}
+
+.modal header {
+    margin-bottom: 1.875rem;
+    display: flex;
+    flex-direction: column;
+    row-gap: 1.875rem;
+}
+
+header .close {
+    width: 1.5625rem;
+    height: 1.5625rem;
+    background-color: #e4dbec;
+    padding: .125rem;
+    border-radius: 50%;
+    transition: background-color .3s ease;
+    cursor: pointer;
+    align-self: end;
+}
+
+header .close:hover {
+    background-color: #d7cae2;
+}
+
+header .icon {
+    width: 4.375rem;
+    align-self: center;
+}
+
+.modal label {
+    font-size: 81.25%;
+    font-weight: bold;
+}
+
+form label + div {
+    margin: .3125rem 0 .625rem;
+}
+
+form input[type="text"] {
+    width: 100%;
+    font-family: inherit;
+    font-size: 93.75%;
+    color: inherit;
+    padding: .5rem .625rem;
+    border: 1px solid #bdbdcf;
+    border-radius: .3125rem;
+    outline: none;
+    transition: border-color .3s ease;
+}
+
+form input[type="text"]:focus {
+    border-color: #22235f;
+}
+
+form input[type="text"]::selection {
+    background-color: #e4dbec;
+}
+
+form input[type="checkbox"] {
+    transform: scale(130%);
+    accent-color: #22235f;
+}
+
+form .book-status {
+    display: flex;
+    align-items: center;
+    column-gap: .625rem;
+}
+
+.btn.add {
+    width: 100%;
+    background-color: #4e4f7f;
+    color: #fff;
+    margin-top: 1.875rem;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, .5);
+    backdrop-filter: blur(3px);
+    z-index: 1;
 }
