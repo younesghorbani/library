@@ -24,17 +24,21 @@ h1 {
     font-family: inherit;
     font-weight: bold;
     color: inherit;
+    padding: .625rem 1.875rem;
     text-transform: uppercase;
+    border: none;
     border-radius: .3125rem;
-    transition: background-color .3s ease;
+    transition: all .3s ease;
     cursor: pointer;
+}
+
+.btn:active {
+    transform: scale(98%);
 }
 
 .btn.new {
     background-color: #4e4f7f;
     margin: .9375rem 0;
-    padding: .625rem 1.875rem;
-    border: none;
 }
 
 .btn.new:hover,
@@ -45,6 +49,7 @@ h1 {
 .container {
     width: 40%;
     margin: 0 auto .9375rem;
+    padding-bottom: .3125rem;
     background-color: #fff;
     border-radius: 0 0 .625rem .625rem;
     box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, 
@@ -61,4 +66,69 @@ header {
 
 main {
     padding: 0 .9375rem;
+}
+
+.book {
+    background-color: #dddca0;
+    margin-bottom: .9375rem;
+    padding: .625rem;
+    border-radius: .625rem;
+    box-shadow: rgba(60, 64, 67, .3) 0px 1px 2px 0px, 
+                rgba(60, 64, 67, .15) 0px 1px 3px 1px;
+    display: flex;
+    flex-direction: column;
+}
+
+.book .info {
+    color: #22235f;
+    padding-bottom: .625rem;
+    border-bottom: 1px solid rgba(78, 79, 127, .1);
+    display: flex;
+    align-items: center;
+    column-gap: .9375rem;
+}
+
+.info .status {
+    width: 5.75rem;
+    background-color: rgba(255, 255, 255, .2);
+    padding: 1.875rem .9375rem;
+    border-radius: .625rem;
+    text-transform: uppercase;
+}
+
+.info .details {
+    font-size: 93.75%;
+}
+
+.details .title {
+    font-weight: bold;
+    margin-bottom: .3125rem;
+}
+
+.details .more {
+    font-size: 87.5%;
+}
+
+.book .action-btns {
+    padding-top: .625rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.action-btns .read {
+    background-color: #18be79;
+}
+
+.action-btns .read:hover,
+.action-btns .read:focus {
+    background-color: #46cb94;
+}
+
+.action-btns .delete {
+    background-color: #be185d;
+}
+
+.action-btns .delete:hover,
+.action-btns .delete:focus {
+    background-color: #cb467d;
 }
