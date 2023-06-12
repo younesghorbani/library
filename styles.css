@@ -43,7 +43,7 @@ svg {
 }
 
 .btn:active {
-    transform: scale(98%);
+    transform: scale(97%);
 }
 
 .btn.new {
@@ -52,9 +52,7 @@ svg {
 }
 
 .btn.new:hover,
-.btn.new:focus,
-.btn.add:hover,
-.btn.add:focus {
+.btn.add:hover {
     background-color: #64658f;
 }
 
@@ -106,6 +104,7 @@ main {
     padding: 1.875rem .9375rem;
     border-radius: .625rem;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .info .details {
@@ -131,8 +130,7 @@ main {
     background-color: #18be79;
 }
 
-.action-btns .read:hover,
-.action-btns .read:focus {
+.action-btns .read:hover {
     background-color: #46cb94;
 }
 
@@ -140,8 +138,7 @@ main {
     background-color: #be185d;
 }
 
-.action-btns .delete:hover,
-.action-btns .delete:focus {
+.action-btns .delete:hover{
     background-color: #cb467d;
 }
 
