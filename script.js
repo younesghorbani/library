@@ -12,11 +12,9 @@ let library = [];
 
 function displayBooks() {
     const books = document.querySelector('.books');
+    books.replaceChildren();
 
-    library.forEach(book => {
-        const divBook = document.createElement('div');
-        divBook.classList.add('book');
-    
+    library.forEach((book, index) => {    
         const divInfo = document.createElement('div');
         divInfo.classList.add('info');
     
@@ -50,8 +48,6 @@ function displayBooks() {
     
         divInfo.append(divStatus);
         divInfo.append(divDetails);
-
-        divBook.append(divInfo);
     
         const divAction = document.createElement('div');
         divAction.classList.add('action-btns');
@@ -59,17 +55,20 @@ function displayBooks() {
         const btnRead = document.createElement('button');
         btnRead.className = 'btn read';
         btnRead.textContent = 'Read';
-
-        divAction.append(btnRead);
     
         const btnDelete = document.createElement('button');
         btnDelete.className = 'btn delete';
         btnDelete.textContent = 'Delete';
 
+        divAction.append(btnRead);
         divAction.append(btnDelete);
 
+        const divBook = document.createElement('div');
+        divBook.classList.add('book');
+        divBook.dataset.id = index;
+        divBook.append(divInfo);
         divBook.append(divAction);
-    
+
         books.append(divBook);
     });
 }
@@ -95,6 +94,18 @@ function addBook(event) {
     displayBooks();
 }
 
+function removeBook(event) {    
+    if (event.target.className === 'btn delete') {
+        const index = event.target.parentElement.parentElement.getAttribute('data-id');
+
+        library.splice(index, 1);
+
+        const book = document.querySelector(`div[data-id='${index}']`);
+
+        document.querySelector('.books').removeChild(book);
+    }
+}
+
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const newBtn = document.querySelector('.new');
@@ -108,3 +119,4 @@ document.addEventListener('keydown', event => {
     if (event.key === 'Escape') closeModal();
 });
 addBtn.addEventListener('click', addBook);
+document.addEventListener('click', removeBook);
