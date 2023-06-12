@@ -8,6 +8,22 @@ function closeModal() {
     overlay.classList.add('hidden');
 }
 
+function changeBookStatus(event) {
+    if (event.target.className === 'btn read') {
+        const index = event.target.parentElement.parentElement.getAttribute('data-id');
+        const book = document.querySelector(`div[data-id='${index}']`);
+        const status = book.firstElementChild.firstElementChild;
+
+        if (library[index].read === true) {
+            library[index].read = false;
+            status.textContent = 'Unread';
+        } else {
+            library[index].read = true;
+            status.textContent = 'Read';
+        }
+    }
+}
+
 let library = [];
 
 function displayBooks() {
@@ -120,3 +136,4 @@ document.addEventListener('keydown', event => {
 });
 addBtn.addEventListener('click', addBook);
 document.addEventListener('click', removeBook);
+document.addEventListener('click', changeBookStatus);
