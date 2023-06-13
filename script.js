@@ -1,3 +1,17 @@
+let library = [];
+
+/*
+    When the page loads, if the library exists in Local Storage, 
+    its content will be retrieved.
+*/
+(() => {
+    if (localStorage.library) {
+        library = JSON.parse(localStorage.getItem('library'));
+
+        displayBooks();
+    }
+})();
+
 function openModal() {
     document.querySelector('form').reset();
 
@@ -9,31 +23,6 @@ function closeModal() {
     modal.classList.add('hidden');
     overlay.classList.add('hidden');
 }
-
-function doActions(event) {
-    const index = event.target.parentElement.parentElement.getAttribute('data-id');
-    const book = document.querySelector(`div[data-id='${index}']`);
-
-    if (event.target.className === 'btn read') {
-        
-        const status = book.firstElementChild.firstElementChild;
-        if (library[index].read === true) {
-            library[index].read = false;
-            status.textContent = 'Unread';
-        } else {
-            library[index].read = true;
-            status.textContent = 'Read';
-        }
-    }
-
-    if (event.target.className === 'btn delete') {
-        library.splice(index, 1);
-
-        document.querySelector('.books').removeChild(book);
-    }
-}
-
-let library = [];
 
 function displayBooks() {
     const books = document.querySelector('.books');
@@ -98,6 +87,37 @@ function displayBooks() {
     });
 }
 
+function doActions(event) {
+    const index = event.target.parentElement.parentElement.getAttribute('data-id');
+    const book = document.querySelector(`div[data-id='${index}']`);
+
+    if (event.target.className === 'btn read') {
+        
+        const status = book.firstElementChild.firstElementChild;
+        if (library[index].read === true) {
+            library[index].read = false;
+            localStorage.setItem('library', JSON.stringify(library));
+            status.textContent = 'Unread';
+        } else {
+            library[index].read = true;
+            localStorage.setItem('library', JSON.stringify(library));
+            status.textContent = 'Read';
+        }
+    }
+
+    if (event.target.className === 'btn delete') {
+        library.splice(index, 1);
+        
+        if (library.length !== 0) {
+            localStorage.setItem('library', JSON.stringify(library));
+        } else {
+            localStorage.clear();
+        }
+
+        document.querySelector('.books').removeChild(book);
+    }
+}
+
 function Book(title, authors, pages, read) {
     this.title = title;
     this.authors = authors;
@@ -116,22 +136,24 @@ function addBook(event) {
     const book = new Book(title, authors, pages, read);
     library.push(book);
 
+    localStorage.setItem('library', JSON.stringify(library));
+
     displayBooks();
 
     document.querySelector('form').reset();
 }
 
+const newBtn = document.querySelector('.new');
+const addBtn = document.querySelector('.add');
+const closeBtn = document.querySelector('.close');
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
-const newBtn = document.querySelector('.new');
-const closeBtn = document.querySelector('.close');
-const addBtn = document.querySelector('.add');
 
 newBtn.addEventListener('click', openModal);
+addBtn.addEventListener('click', addBook);
 closeBtn.addEventListener('click', closeModal);
 overlay.addEventListener('click', closeModal);
 document.addEventListener('keydown', event => {
     if (event.key === 'Escape') closeModal();
 });
-addBtn.addEventListener('click', addBook);
 document.addEventListener('click', doActions);
