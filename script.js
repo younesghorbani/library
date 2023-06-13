@@ -1,4 +1,6 @@
 function openModal() {
+    document.querySelector('form').reset();
+
     modal.classList.remove('hidden');
     overlay.classList.remove('hidden');
 }
@@ -8,12 +10,13 @@ function closeModal() {
     overlay.classList.add('hidden');
 }
 
-function changeBookStatus(event) {
-    if (event.target.className === 'btn read') {
-        const index = event.target.parentElement.parentElement.getAttribute('data-id');
-        const book = document.querySelector(`div[data-id='${index}']`);
-        const status = book.firstElementChild.firstElementChild;
+function doActions(event) {
+    const index = event.target.parentElement.parentElement.getAttribute('data-id');
+    const book = document.querySelector(`div[data-id='${index}']`);
 
+    if (event.target.className === 'btn read') {
+        
+        const status = book.firstElementChild.firstElementChild;
         if (library[index].read === true) {
             library[index].read = false;
             status.textContent = 'Unread';
@@ -21,6 +24,12 @@ function changeBookStatus(event) {
             library[index].read = true;
             status.textContent = 'Read';
         }
+    }
+
+    if (event.target.className === 'btn delete') {
+        library.splice(index, 1);
+
+        document.querySelector('.books').removeChild(book);
     }
 }
 
@@ -108,18 +117,8 @@ function addBook(event) {
     library.push(book);
 
     displayBooks();
-}
 
-function removeBook(event) {    
-    if (event.target.className === 'btn delete') {
-        const index = event.target.parentElement.parentElement.getAttribute('data-id');
-
-        library.splice(index, 1);
-
-        const book = document.querySelector(`div[data-id='${index}']`);
-
-        document.querySelector('.books').removeChild(book);
-    }
+    document.querySelector('form').reset();
 }
 
 const modal = document.querySelector('.modal');
@@ -135,5 +134,4 @@ document.addEventListener('keydown', event => {
     if (event.key === 'Escape') closeModal();
 });
 addBtn.addEventListener('click', addBook);
-document.addEventListener('click', removeBook);
-document.addEventListener('click', changeBookStatus);
+document.addEventListener('click', doActions);
