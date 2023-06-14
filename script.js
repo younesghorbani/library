@@ -1,5 +1,21 @@
 let library = [];
 
+const total = document.querySelector('.total > p');
+const newBtn = document.querySelector('.new');
+const addBtn = document.querySelector('.add');
+const closeBtn = document.querySelector('.close');
+const modal = document.querySelector('.modal');
+const overlay = document.querySelector('.overlay');
+
+newBtn.addEventListener('click', openModal);
+addBtn.addEventListener('click', addBook);
+closeBtn.addEventListener('click', closeModal);
+overlay.addEventListener('click', closeModal);
+document.addEventListener('keydown', event => {
+    if (event.key === 'Escape') closeModal();
+});
+document.addEventListener('click', doActions);
+
 /*
     When the page loads, if the library exists in Local Storage, 
     its content will be retrieved.
@@ -10,6 +26,8 @@ let library = [];
 
         displayBooks();
     }
+
+    total.textContent = library.length;
 })();
 
 function openModal() {
@@ -88,10 +106,9 @@ function displayBooks() {
 }
 
 function doActions(event) {
-    const index = event.target.parentElement.parentElement.getAttribute('data-id');
-    const book = document.querySelector(`div[data-id='${index}']`);
-
     if (event.target.className === 'btn read') {
+        const index = event.target.parentElement.parentElement.getAttribute('data-id');
+        const book = document.querySelector(`div[data-id='${index}']`);
         
         const status = book.firstElementChild.firstElementChild;
         if (library[index].read === true) {
@@ -106,6 +123,8 @@ function doActions(event) {
     }
 
     if (event.target.className === 'btn delete') {
+        const index = event.target.parentElement.parentElement.getAttribute('data-id');
+        
         library.splice(index, 1);
         
         if (library.length !== 0) {
@@ -114,7 +133,9 @@ function doActions(event) {
             localStorage.clear();
         }
 
-        document.querySelector('.books').removeChild(book);
+        total.textContent = library.length;
+
+        displayBooks();
     }
 }
 
@@ -138,22 +159,9 @@ function addBook(event) {
 
     localStorage.setItem('library', JSON.stringify(library));
 
+    total.textContent = library.length;
+
     displayBooks();
 
     document.querySelector('form').reset();
 }
-
-const newBtn = document.querySelector('.new');
-const addBtn = document.querySelector('.add');
-const closeBtn = document.querySelector('.close');
-const modal = document.querySelector('.modal');
-const overlay = document.querySelector('.overlay');
-
-newBtn.addEventListener('click', openModal);
-addBtn.addEventListener('click', addBook);
-closeBtn.addEventListener('click', closeModal);
-overlay.addEventListener('click', closeModal);
-document.addEventListener('keydown', event => {
-    if (event.key === 'Escape') closeModal();
-});
-document.addEventListener('click', doActions);
