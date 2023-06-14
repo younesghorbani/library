@@ -78,13 +78,13 @@ svg {
 }
 
 .container header .total {
-    width: 86px;
-    height: 86px;
+    width: 5.375rem;
+    height: 5.375rem;
     font-weight: bold;
     background-color: rgba(255, 255, 255, .2);
-    padding: 10px;
+    padding: .625rem;
     text-transform: uppercase;
-    border-radius: 10px;
+    border-radius: .625rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -92,7 +92,7 @@ svg {
 }
 
 .container header .total > p {
-    font-size: 40px;
+    font-size: 250%;
     font-weight: bold;
     line-height: 1;
 }
