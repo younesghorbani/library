@@ -139,11 +139,13 @@ function doActions(event) {
     }
 }
 
-function Book(title, authors, pages, read) {
-    this.title = title;
-    this.authors = authors;
-    this.pages = pages;
-    this.read = read;
+class Book {
+    constructor(title, authors, pages, read) {
+        this.title = title;
+        this.authors = authors;
+        this.pages = pages;
+        this.read = read;
+    }
 }
 
 function addBook(event) {
