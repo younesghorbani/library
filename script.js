@@ -6,6 +6,8 @@ const addBtn = document.querySelector('.add');
 const closeBtn = document.querySelector('.close');
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
+const inputs = document.querySelectorAll(`input[type='text']`);
+const error = document.querySelector('.error');
 
 newBtn.addEventListener('click', openModal);
 addBtn.addEventListener('click', addBook);
@@ -15,6 +17,9 @@ document.addEventListener('keydown', event => {
     if (event.key === 'Escape') closeModal();
 });
 document.addEventListener('click', doActions);
+inputs.forEach(input => input.addEventListener('input', () => {
+    if (error.textContent) hideError();
+}));
 
 /*
     When the page loads, if the library exists in Local Storage, 
@@ -38,8 +43,18 @@ function openModal() {
 }
 
 function closeModal() {
+    if (error.textContent) hideError();
+
     modal.classList.add('hidden');
     overlay.classList.add('hidden');
+}
+
+function displayError() {
+    error.textContent = 'All fields must be filled!';
+}
+
+function hideError() {
+    error.textContent = '';
 }
 
 function displayBooks() {
@@ -151,19 +166,32 @@ class Book {
 function addBook(event) {
     event.preventDefault();
 
-    const title = document.querySelector('#book-title').value;
-    const authors = document.querySelector('#book-authors').value;
-    const pages = document.querySelector('#book-pages').value;
-    const read = Boolean(document.querySelector('#book-read').checked);
+    const title = document.querySelector('#book-title');
+    const authors = document.querySelector('#book-authors');
+    const pages = document.querySelector('#book-pages');
+    const read = document.querySelector('#book-read');
+
+    if (
+        title.validity.valueMissing || 
+        authors.validity.valueMissing || 
+        pages.validity.valueMissing
+    ) {
+        displayError();
+    } else {
+        const titleValue = title.value;
+        const authorsValue = authors.value;
+        const pagesValue = pages.value;
+        const readValue = Boolean(read.checked);
+
+        const book = new Book(titleValue, authorsValue, pagesValue, readValue);
+        library.push(book);
     
-    const book = new Book(title, authors, pages, read);
-    library.push(book);
+        localStorage.setItem('library', JSON.stringify(library));
+    
+        total.textContent = library.length;
+    
+        displayBooks();
 
-    localStorage.setItem('library', JSON.stringify(library));
-
-    total.textContent = library.length;
-
-    displayBooks();
-
-    document.querySelector('form').reset();
+        document.querySelector('form').reset();
+    }
 }
