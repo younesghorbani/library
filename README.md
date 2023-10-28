@@ -10,6 +10,7 @@ This project is about building a simple library using **Objects** and **Object C
 - Learn how to use the Object Constructor to create as many Object instances as you want.
 - Learning how to access the properties of an Object.
 - Learning how to use the book Object Constructor as a blueprint to instantiate as many book Objects as you like.
+- Learning how to use **Form Validation** to validate user inputs.
 
 ## Other concepts used
 
@@ -19,6 +20,7 @@ This project is about building a simple library using **Objects** and **Object C
 - CSS Positioning
 - CSS Transitions
 - Event Listeners
+- Form Validation
 - JSON
 - IIFE
 - Web Storage
